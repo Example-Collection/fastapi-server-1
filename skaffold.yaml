@@ -1,0 +1,20 @@
+apiVersion: skaffold/v4beta1
+kind: Config
+metadata:
+  name: fastapi-server-1
+build:
+  platforms: ["linux/amd64"]
+  tagPolicy:
+    sha256: {}
+  artifacts:
+  - image: spaceonedev/fastapi-server-1
+    docker:
+      dockerfile: Dockerfile
+deploy:
+  helm:
+    releases:
+    - name: fastapi-server-1
+      chartPath: deploy/helm
+      valuesFiles:
+      - deploy/helm/values.yaml
+      version: 1.0.0
