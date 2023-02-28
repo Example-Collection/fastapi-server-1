@@ -6,7 +6,7 @@ deployment:
 pod:
   name: fastapi-server-1-pod
 image:
-  repository: spaceonedev/fastapi-server-1
+  repository: robbyra98/fastapi-server-1
   pullPolicy: IfNotPresent
 service:
   name: fastapi-server-1-svc
