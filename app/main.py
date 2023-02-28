@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.item import Item
 from app.service import call_server_2
@@ -9,7 +10,19 @@ from opentelemetry.instrumentation.logging import LoggingInstrumentor
 
 import logging
 
+
 app = FastAPI()
+
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 LoggingInstrumentor().instrument(set_logging_format=True,
                                  logging_format=' trace_id=%(otelTraceID)s span_id=%(otelSpanID)s - %(message)s')
